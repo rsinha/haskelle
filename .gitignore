@@ -1,0 +1,3 @@
+#ignore compiled outputs
+*.hi
+*.o
