@@ -1,4 +1,5 @@
 #ignore compiled outputs
 *.hi
 *.o
+*.swp
 haskelle
