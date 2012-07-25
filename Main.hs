@@ -1,5 +1,4 @@
 import Haskelle
-import Printer
 import Prover
 
 main = do
@@ -7,3 +6,7 @@ main = do
 
 	putStrLn . show . Prover.isAtomic $ (Haskelle.Atomic "o")	
 	putStrLn . show . Prover.isAtomic $ (Haskelle.Conjunction (Haskelle.Atomic "o1") (Haskelle.Atomic "o2"))
+
+	a <- return (Haskelle.Atomic "a")
+	b <- return (Haskelle.Atomic "b")
+	putStrLn . show . Prover.leftImplRule $ (Haskelle.Sequent [(Haskelle.Implication a b)] [a])
