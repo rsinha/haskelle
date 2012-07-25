@@ -27,5 +27,3 @@ data Rule = 		Axiom |
 
 data ProofTree =	ProofTree Sequent Rule [ProofTree]
 
-
-

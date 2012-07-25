@@ -1,4 +1,4 @@
-haskelle: Main.hs Haskelle.hs
+haskelle: Main.hs Haskelle.hs Printer.hs Prover.hs
 	ghc -o haskelle Main.hs
 
 interpret:
