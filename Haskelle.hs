@@ -53,9 +53,11 @@ instance Show ProofTree where
 p --> q = Implication p q 	--logical implication
 ps |- qs = Sequent ps qs	--turnstile symbol from Sequent Calculus for Propositional Logic
 
+{-
 -- Curry-Howard correspondence between logic and type theory
 -- a & b corresponds to product type (a,b), a | b corresponds to sum type (Either a b)
 instance Num Proposition where
 	p + q = Disjunction p q
 	p * q = Conjunction p q
+-}
 
