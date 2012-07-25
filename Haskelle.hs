@@ -1,5 +1,8 @@
+module Haskelle (Proposition(..), Sequent(..), Rule(..), ProofTree(..)) where
+
 import List (delete, intersect)
 import Maybe (isJust, fromJust)
+
 
 --Data Structures
 
