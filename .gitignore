@@ -1,4 +1,4 @@
 #ignore compiled outputs
 *.hi
 *.o
-./haskelle
+haskelle
