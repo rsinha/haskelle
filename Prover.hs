@@ -5,8 +5,27 @@ module Prover where
 --step 1: check whether its an axion, if so we are done
 --step 2: Use one of 6 inference rules to replace the goal by simpler subgoals. Recurse.
 
-import List
+import List (elem, delete)
+import Maybe (fromJust, isJust)
 import Haskelle
+
+--proof tactic
+tactics = (\sequent ->
+		axiomRule sequent ++
+		leftConjRule sequent ++
+		rightConjRule sequent ++
+		leftDisjRule sequent ++
+		rightDisjRule sequent ++
+		leftImplRule sequent ++
+		rightImplRule sequent
+	  )
+
+proof tactics sequent =
+	if null subtrees then Nothing else Just (ProofTree sequent rule (map fromJust $ subtree))
+	where 	subtrees = [(subtree,rule) | (subgoal,rule) <- tactics sequent,
+					   subtree <- [map (proof tactics) subgoal],
+					   all isJust subtree]
+		(subtree,rule) = head subtrees
 
 --rules
 

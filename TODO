@@ -1,1 +1,2 @@
 - Add support for Parsec
+- Integrate with QuickChceck / SmallCheck or HUnit

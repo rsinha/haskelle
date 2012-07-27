@@ -4,6 +4,7 @@ import Prover
 main = do
 	a <- return (Atomic "a")
 	b <- return (Atomic "b")
+	c <- return (Atomic "c")
 	p <- return (Atomic "p")
 	q <- return (Atomic "q")
 	r <- return (Atomic "r")
@@ -30,3 +31,9 @@ main = do
 	putStrLn . show . Prover.leftImplRule $ (Sequent [(Implication a b)] [a])
 	putStrLn . show . Prover.leftDisjRule $ (Sequent [Disjunction p q, Disjunction a b] [r])
 
+	--prover tests
+	putStrLn "\n============\nPROVER TESTS\n============\n"
+	putStrLn . show . Prover.proof Prover.tactics $ (Sequent as [Implication p p])
+	putStrLn . show . Prover.proof Prover.tactics $ (Sequent [] [(Implication p (Implication q p))])
+	putStrLn . show . Prover.proof Prover.tactics $ (Sequent [] [(Implication (Conjunction p (Disjunction q r)) (Disjunction (Conjunction p q) (Conjunction p r)) )])
+	--putStrLn . show . Prover.proof Prover.tactics $ (Sequent [] [(Implication (Implication a b) (Implication (Implication c a) (Implication c b)))])
