@@ -34,6 +34,7 @@ main = do
 	--prover tests
 	putStrLn "\n============\nPROVER TESTS\n============\n"
 	putStrLn . show . Prover.proof Prover.tactics $ (Sequent as [Implication p p])
+	putStrLn . show . Prover.proof Prover.tactics $ (Sequent as [Implication p q])
 	putStrLn . show . Prover.proof Prover.tactics $ (Sequent [] [(Implication p (Implication q p))])
 	putStrLn . show . Prover.proof Prover.tactics $ (Sequent [] [(Implication (Conjunction p (Disjunction q r)) (Disjunction (Conjunction p q) (Conjunction p r)) )])
 	--putStrLn . show . Prover.proof Prover.tactics $ (Sequent [] [(Implication (Implication a b) (Implication (Implication c a) (Implication c b)))])
