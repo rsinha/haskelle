@@ -1,7 +1,12 @@
-module Haskelle (Proposition(..), Sequent(..), Rule(..), ProofTree(..)) where
+module Haskelle where
 
 import List (delete, intersect)
 import Maybe (isJust, fromJust)
+
+
+--each Logic System must provide a set of rules where each rule transforms a Sequent into [([Sequent], Rule)] 
+class LogicalCalculus system where
+        rules :: system -> Sequent -> [([Sequent], Rule)]
 
 
 --Data Structures

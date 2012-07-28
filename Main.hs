@@ -1,7 +1,10 @@
 import Haskelle
+import G3ipCalculus
 import Prover
 
 main = do
+	g3rules <- return (rules G3ipCalculus)
+
 	a <- return (Atomic "a")
 	b <- return (Atomic "b")
 	c <- return (Atomic "c")
@@ -13,28 +16,28 @@ main = do
 	
 	--sanity tests
 	putStrLn "\n============\nSANITY TESTS\n============\n"
-	putStrLn . show . Prover.axiomRule $ (Sequent (p:as) [p])
-	putStrLn . show . Prover.leftConjRule $ (Sequent ((Conjunction p q):as) [r])
-	putStrLn . show . Prover.rightConjRule $ (Sequent as [Conjunction p q])
-	putStrLn . show . Prover.leftDisjRule $ (Sequent ((Disjunction p q):as) [r])
-	putStrLn . show . Prover.rightDisjRule $ (Sequent as [Disjunction p q])
-	putStrLn . show . Prover.leftImplRule $ (Sequent ((Implication p q):as) [r])
-	putStrLn . show . Prover.rightImplRule $ (Sequent as [Implication p q])
+	putStrLn . show . G3ipCalculus.axiomRule $ (Sequent (p:as) [p])
+	putStrLn . show . G3ipCalculus.leftConjRule $ (Sequent ((Conjunction p q):as) [r])
+	putStrLn . show . G3ipCalculus.rightConjRule $ (Sequent as [Conjunction p q])
+	putStrLn . show . G3ipCalculus.leftDisjRule $ (Sequent ((Disjunction p q):as) [r])
+	putStrLn . show . G3ipCalculus.rightDisjRule $ (Sequent as [Disjunction p q])
+	putStrLn . show . G3ipCalculus.leftImplRule $ (Sequent ((Implication p q):as) [r])
+	putStrLn . show . G3ipCalculus.rightImplRule $ (Sequent as [Implication p q])
 
 	--random tests
 	putStrLn "\n============\nRANDOM TESTS\n============\n"
 	putStrLn (show (ProofTree (Sequent [] [Implication (Atomic "p") (Atomic "p")]) RightImpl [ProofTree (Sequent [Atomic "p"] [Atomic "p"]) Axiom []]))
 
-	putStrLn . show . Prover.isAtomic $ a	
-	putStrLn . show . Prover.isAtomic $ (Conjunction a b)
+	putStrLn . show . G3ipCalculus.isAtomic $ a	
+	putStrLn . show . G3ipCalculus.isAtomic $ (Conjunction a b)
 
-	putStrLn . show . Prover.leftImplRule $ (Sequent [(Implication a b)] [a])
-	putStrLn . show . Prover.leftDisjRule $ (Sequent [Disjunction p q, Disjunction a b] [r])
+	putStrLn . show . G3ipCalculus.leftImplRule $ (Sequent [(Implication a b)] [a])
+	putStrLn . show . G3ipCalculus.leftDisjRule $ (Sequent [Disjunction p q, Disjunction a b] [r])
 
 	--prover tests
 	putStrLn "\n============\nPROVER TESTS\n============\n"
-	putStrLn . show . Prover.proof Prover.tactics $ (Sequent as [Implication p p])
-	putStrLn . show . Prover.proof Prover.tactics $ (Sequent as [Implication p q])
-	putStrLn . show . Prover.proof Prover.tactics $ (Sequent [] [(Implication p (Implication q p))])
-	putStrLn . show . Prover.proof Prover.tactics $ (Sequent [] [(Implication (Conjunction p (Disjunction q r)) (Disjunction (Conjunction p q) (Conjunction p r)) )])
-	--putStrLn . show . Prover.proof Prover.tactics $ (Sequent [] [(Implication (Implication a b) (Implication (Implication c a) (Implication c b)))])
+	putStrLn . show . Prover.prove g3rules $ (Sequent as [Implication p p])
+	putStrLn . show . Prover.prove g3rules $ (Sequent as [Implication p q])
+	putStrLn . show . Prover.prove g3rules $ (Sequent [] [(Implication p (Implication q p))])
+	putStrLn . show . Prover.prove g3rules $ (Sequent [] [(Implication (Conjunction p (Disjunction q r)) (Disjunction (Conjunction p q) (Conjunction p r)) )])
+	--putStrLn . show . Prover.prove Prover.tactics $ (Sequent [] [(Implication (Implication a b) (Implication (Implication c a) (Implication c b)))])
