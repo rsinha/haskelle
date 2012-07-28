@@ -1,9 +1,11 @@
 import Haskelle
 import G3ipCalculus
+import G4ipCalculus
 import Prover
 
 main = do
 	g3rules <- return (rules G3ipCalculus)
+	g4rules <- return (rules G4ipCalculus)
 
 	a <- return (Atomic "a")
 	b <- return (Atomic "b")
@@ -35,9 +37,11 @@ main = do
 	putStrLn . show . G3ipCalculus.leftDisjRule $ (Sequent [Disjunction p q, Disjunction a b] [r])
 
 	--prover tests
-	putStrLn "\n============\nPROVER TESTS\n============\n"
+	putStrLn "\n============\nPROVER TESTS: G3\n============\n"
 	putStrLn . show . Prover.prove g3rules $ (Sequent as [Implication p p])
 	putStrLn . show . Prover.prove g3rules $ (Sequent as [Implication p q])
 	putStrLn . show . Prover.prove g3rules $ (Sequent [] [(Implication p (Implication q p))])
 	putStrLn . show . Prover.prove g3rules $ (Sequent [] [(Implication (Conjunction p (Disjunction q r)) (Disjunction (Conjunction p q) (Conjunction p r)) )])
-	--putStrLn . show . Prover.prove Prover.tactics $ (Sequent [] [(Implication (Implication a b) (Implication (Implication c a) (Implication c b)))])
+	
+	putStrLn "\n============\nPROVER TESTS: G4\n============\n"
+	putStrLn . show . Prover.prove g4rules $ (Sequent [] [(Implication (Implication a b) (Implication (Implication c a) (Implication c b)))])
