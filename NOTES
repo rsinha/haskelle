@@ -1,0 +1,33 @@
+Curry-Howard correspondence
+===========================
+
+Curry-Howard Correspondence between propositions in logic and types in functional programming.
+eg. the sequent (a -> b) |- ((c -> a) -> (c -> b)) is actually saying something about types.
+If you have a function f :: a -> b, then you can make a function g :: (c -> a) -> (c -> b).
+Let's see how.
+g h = f . h
+
+Correspondence:
+Implication a->b corresponds to function a->b
+Conjunction a&b corresponds to product type (a,b)
+Disjunction a|b corresponds to sum type Either a b
+
+1. Curry-Howard correspondence says that if there is a function having a particular polymorphic type,
+then the corresponding proposition is provable in intuitionistic logic.
+eg. fst :: (a,b) -> a corresponds to the true statement (a & b) -> a (proved in G4ip using Haskelle proofG4ip $ [] |- [a*b --> a])
+
+Terminlogy: A function of a given type is an inhabitant of that type,
+and a witness for the corresponding proposition.
+
+2. Curry-Howard correspondence also says that if a proposition is provable in intuitionistic logic,
+then it has a witness function i.e. there is a function with the corresponding type.
+eg. we can prove using G3ipCalculus in Haskelle that (a & b) -> (b & a)
+There must be a function of the corresponding type, and that function is
+swap :: (a,b) -> (b,a)
+swap (x,y) = (y,x)
+
+
+Sequent Calculus
+================
+
+

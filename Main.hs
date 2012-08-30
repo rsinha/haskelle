@@ -2,6 +2,8 @@ import Haskelle
 import G3ipCalculus
 import G4ipCalculus
 import Prover
+import ParseMonad
+import ExprMonad
 
 main = do
 	g3rules <- return (rules G3ipCalculus)
@@ -15,6 +17,7 @@ main = do
 	r <- return (Atomic "r")
 	s <- return (Atomic "s")
 	as <- return [Atomic "A"] --random propositions
+	as1 <- return ([Implication a b] ++ [a]) --random propositions
 	
 	--sanity tests
 	putStrLn "\n============\nSANITY TESTS\n============\n"
@@ -45,3 +48,10 @@ main = do
 	
 	putStrLn "\n============\nPROVER TESTS: G4\n============\n"
 	putStrLn . show . Prover.prove g4rules $ (Sequent [] [(Implication (Implication a b) (Implication (Implication c a) (Implication c b)))])
+	putStrLn . show . Prover.prove g4rules $ (Sequent as1 [b])
+	putStrLn . show . Prover.prove g4rules $ (Sequent [] [Implication (Disjunction a b) c])
+
+	--parser tests
+	putStrLn "\n============\nPARSER TESTS: Numeric Expressions\n============\n"
+	putStrLn . show $ parse expr "(1+(2*3))"
+	putStrLn . show . eval $ parse expr "(1+(2*3))"
