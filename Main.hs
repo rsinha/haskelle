@@ -3,7 +3,7 @@ import G3ipCalculus
 import G4ipCalculus
 import Prover
 import ParseMonad
-import ExprMonad
+import SequentParseMonad
 
 main = do
 	g3rules <- return (rules G3ipCalculus)
@@ -53,5 +53,7 @@ main = do
 
 	--parser tests
 	putStrLn "\n============\nPARSER TESTS: Numeric Expressions\n============\n"
-	putStrLn . show $ parse expr "(1+(2*3))"
-	putStrLn . show . eval $ parse expr "(1+(2*3))"
+	putStrLn . show $ evalSeqExpr (parse seqexpr "|-((a->b)->((c->a)->(c->b)))")
+	putStrLn . show . Prover.prove g4rules $ evalSeqExpr (parse seqexpr "|-((a->b)->((c->a)->(c->b)))")
+
+

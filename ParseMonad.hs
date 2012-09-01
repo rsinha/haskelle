@@ -1,6 +1,6 @@
 --Derived from Philip Walder's Parser Monad
 
-module ParseMonad (Parser, apply, parse, char, spot, token, star, plus, parseInt) where
+module ParseMonad where --(Parser, apply, parse, char, spot, token, star, plus, parseInt) where
 
 import Char
 import Monad
@@ -54,6 +54,12 @@ star p = plus p `mplus` return []
 --one or more
 plus :: Parser a -> Parser [a]
 plus p = do { x <- p; xs <- star p; return (x:xs) }
+
+
+--Parsing a string
+
+parseStr :: Parser String
+parseStr = do { s <- plus (spot isAlpha); return s }
 
 
 --Parsing an integer
